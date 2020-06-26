@@ -1,0 +1,2 @@
+# ai-labelImg-double-checker
+Unless you are perfect - having some way to double check your classifications from LabelImg is a must. I didn't find anything so I made one - it is super simple. It extracts all images with the file name .check.1.MyClass1Name at the end. Then you can look at them all side by side and see how you did with a simple Explorer or Finder window filtering each class one at a time. I am sadly not perfect I found out.
