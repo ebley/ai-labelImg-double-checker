@@ -13,7 +13,7 @@ So if we make an image extractor - we can quickly check that our LabelImg effort
 
 Set the sourcedir variable to the proper directory. change `diffCheckDirExt` if you want photos saved in another peer directory to your images directory.
 
-It looks for jpg and pngs and if there is a corresponding .txt file it iterates through every line and makes a file called .check.<yourclassname\>.jpg (or .png)
+It looks for jpg and pngs and if there is a corresponding .txt file it iterates through every line and makes a file called .check.X.<yourclassname\>.jpg (or .png). X could be the class number starting from 0 in a file called classes.txt that needs to be along side your images - its the same class file you would use for YOLO or the like.
 
 You have to have a classes.txt file that would have come from your LabelImg efforts anyway. I assume it is in the same directory as the images - which might not be the case for training - but I wanted to keep this simple.
 
