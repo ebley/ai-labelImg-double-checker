@@ -5,10 +5,10 @@ Oh, and only outputs errors, it puts a summary of how many of each class it suce
 
 By default - if you directory you picked is img then it saves it in a new peer folder called img.check
 
-#install
+# install
 Well it is one file so just ensure you have opencv (a reminder that you cannot just `pip install cv2` - you have to type `pip install opencv-python` and then `import cv2`
 
-#Code to double check that you did the YOLO part correctly - look at your images
+# Instructions
 So if we make an image extractor - we can quickly check that our LabelImg efforts worked.
 
 Set the sourcedir variable to the proper directory. change `diffCheckDirExt` if you want photos saved in another peer directory to your images directory.
@@ -17,7 +17,7 @@ It looks for jpg and pngs and if there is a corresponding .txt file it iterates 
 
 You have to have a classes.txt file that would have come from your LabelImg efforts anyway. I assume it is in the same directory as the images - which might not be the case for training - but I wanted to keep this simple.
 
-#code
+# code
 ``` python
 import cv2
 import numpy as np 
