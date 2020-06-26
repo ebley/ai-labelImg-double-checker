@@ -1,14 +1,16 @@
 # ai-labelImg-double-checker
 Unless you are perfect - having some way to double check your classifications from LabelImg is a must. I didn't find anything so I made one - it is super simple. It extracts all images with the file name .check.1.MyClass1Name at the end. Then you can look at them all side by side and see how you did with a simple Explorer or Finder window filtering each class one at a time. I am sadly not perfect I found out.
 
-Oh, and only outputs errors, it puts a summary of how many of each class it sucesssfully saved.
+Oh it puts a summary of how many of each class it sucesssfully saved and only really bothers you if something went wrong. A %complete summary is listed as it is running.
 
 By default - if you directory you picked is img then it saves it in a new peer folder called img.check
+
+Right now (cause I really got to crack on!) it only does YOLOv2/3 format - I am sure I will modify it (or someone else can) for Pascal VOC format. With YOLO, for heaven's sake remember that the x,y is the center of the square.
 
 # install
 Well it is one file so just ensure you have opencv (a reminder that you cannot just `pip install cv2` - you have to type `pip install opencv-python` and then `import cv2`
 
-# Instructions
+# instructions
 So if we make an image extractor - we can quickly check that our LabelImg efforts worked.
 
 Set the sourcedir variable to the proper directory. change `diffCheckDirExt` if you want photos saved in another peer directory to your images directory.
