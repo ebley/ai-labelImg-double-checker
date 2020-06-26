@@ -1,9 +1,15 @@
 # ai-labelImg-double-checker
 Unless you are perfect - having some way to double check your classifications from LabelImg is a must. I didn't find anything so I made one - it is super simple. It extracts all images with the file name .check.1.MyClass1Name at the end. Then you can look at them all side by side and see how you did with a simple Explorer or Finder window filtering each class one at a time. I am sadly not perfect I found out.
 
-Oh it puts a summary of how many of each class it sucesssfully saved and only really bothers you if something went wrong. A %complete summary is listed as it is running.
-
-By default - if you directory you picked is img then it saves it in a new peer folder called img.check
+Here is what it does
+a) for every .png/.jpg with a .txt that isn't empty it creates a sub-image clip just like you marked in LabelImg (or the like) in YOLO format (other format to come) 
+b) It tallies all the samples for each class
+c) it makes a full-path list of images that were actually processed (leaving the empty .txt file items OUT of the final list)
+    - this is used later on in the YOLO setup anyway - and I am NOT going to type them all out by hand :-)
+d) If something goes wrong it tells you along the way. If all goes well there is a % progress is all. 
+e) It prints a summary at the bottom
+    - of how many images per class
+    - where the output directory is in case you forget or are lazy like me
 
 Right now (cause I really got to crack on!) it only does YOLOv2/3 format - I am sure I will modify it (or someone else can) for Pascal VOC format. With YOLO, for heaven's sake remember that the x,y is the center of the square.
 
@@ -69,6 +75,8 @@ def preDeleteFilesOfType(intype):
     for item in test:
         if (item.endswith(".png") or item.endswith(".jpg")) and item.find(".check.")>=0:
             os.remove(os.path.join(sourcedir + diffCheckDirExt, item))
+        if item == "file_list.txt":
+            os.remove(os.path.join(sourcedir + diffCheckDirExt, item))
 
 def handlefile(file):
     global totalExtractions
@@ -89,6 +97,12 @@ def handlefile(file):
         return
     
     for index, row in tf.iterrows():
+        if index == 0:
+            file_object = open(os.path.join(sourcedir+diffCheckDirExt,'file_list.txt'), 'a')
+            halfpath = filename
+            file_object.write(halfpath + "\n")
+            file_object.close()
+
         totalExtractions = totalExtractions  + 1
         if exportFile(index, row, pre,ext,im):
             classDefCount[int(row['class'])] = classDefCount[int(row['class'])] + 1 #the index is numeric version of the class
@@ -149,6 +163,7 @@ def mainRoutine():
             print(str(round(percentComplete)) + '% ' + os.path.join(sourcedir, file), end='\r')
             handlefile(file)
     print ("100% Complete")
+    print("")
     printSummary()
 
 def printSummary():
@@ -159,7 +174,8 @@ def printSummary():
     print("")
     print ("Total Successful/Valid Extractions: " + str( round(totalValidExtractions/totalExtractions*100) )+ "%")
     print ("A reminder that your check folder is: " + sourcedir + diffCheckDirExt)
-        
+    print ("There is also a full-path files_list.txt file there ")
+    
 mainRoutine()
 
 ```
